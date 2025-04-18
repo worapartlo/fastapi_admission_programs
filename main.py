@@ -15,9 +15,9 @@ app.add_middleware(
 )
 
 # Load data from Excel files
-path = "/Users/reg/Desktop/admission_weight68_update.xlsx"
-path2 = "/Users/reg/Desktop/คณะสาขาที่เปิดรับและคะแนนรวมขั้นต่ำ68-1.xlsx"
-path3 = "/Users/reg/Desktop/คะแนนสูง-ต่ำ2568.xlsx"
+path = "data/admission_weight68_update.xlsx"
+path2 = "data/คณะสาขาที่เปิดรับและคะแนนรวมขั้นต่ำ68-1.xlsx"
+path3 = "data/คะแนนสูง-ต่ำ2568.xlsx"
 pf = pd.read_excel(path).fillna(0)
 pf2 = pd.read_excel(path2).fillna(0)
 pf3 = pd.read_excel(path3).fillna(0)
