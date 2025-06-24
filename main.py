@@ -15,12 +15,14 @@ app.add_middleware(
 )
 
 # Load data from Excel files
-path = "data/admission_weight68_update.xlsx"
-path2 = "data/คณะสาขาที่เปิดรับและคะแนนรวมขั้นต่ำ68-1.xlsx"
-path3 = "data/คะแนนสูง-ต่ำ2568.xlsx"
+path = "/Users/reg/Desktop/admission_weight68_update.xlsx" #คะแนนที่ใช้คำนวน
+path2 = "/Users/reg/Desktop/คณะสาขาที่เปิดรับและคะแนนรวมขั้นต่ำ68-1.xlsx" #ไฟล์เกณฑ์แต่ละปี
+path3 = "/Users/reg/Desktop/คะแนนสูง-ต่ำ2568.xlsx" #ไฟล์วิเคราะห์คะแนน
+path4 = "/Users/reg/Desktop/result2.xlsx" #ไฟล์วิเคราะห์คะแนน
 pf = pd.read_excel(path).fillna(0)
 pf2 = pd.read_excel(path2).fillna(0)
 pf3 = pd.read_excel(path3).fillna(0)
+pf4 = pd.read_excel(path4).fillna(0)
 
 # Pydantic model to accept the input data
 class Scores(BaseModel):
@@ -156,6 +158,7 @@ async def get_qualified_programs(data: Scores):
 
     return qualified_programs
 
+
 @app.post("/list_programs", response_class=JSONResponse)
 async def list_name_programs():
     list_programs = []
@@ -180,6 +183,35 @@ async def list_name_programs():
                 "program_name": program_name,
                 "min_score": min_score,
                 "max_score": max_score
+                
+            })
+
+    return list_programs
+
+@app.post("/list_programs_zscore", response_class=JSONResponse)
+async def list_name_programs():
+    list_programs = []
+    id = 0
+    
+    seen_programs = set()
+    for _, row in pf4.iterrows():
+        program_id = row["PROGRAMID"]
+        program_name = row["PROGRAMNAME"]
+        mean_avg = row["mean_avg"]
+        sd_avg = row["sd_avg"]
+
+        if (program_id, program_name) not in seen_programs:
+            id += 1
+            faculty_name = row["FACULTYNAME"]
+            seen_programs.add((program_id, program_name))
+
+            list_programs.append({
+                "id": id,
+                "faculty_name": faculty_name,
+                "program_id": program_id,
+                "program_name": program_name,
+                "mean_avg": mean_avg,
+                "sd_avg": sd_avg
                 
             })
 
