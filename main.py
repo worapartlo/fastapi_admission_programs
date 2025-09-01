@@ -15,11 +15,11 @@ app.add_middleware(
 )
 
 # Load data from Excel files
-path = "/Users/reg/Desktop/admission_weight68_update.xlsx"  # คะแนนที่ใช้คำนวน
-path2 = "/Users/reg/Desktop/คณะสาขาที่เปิดรับและคะแนนรวมขั้นต่ำ68-1.xlsx"  # ไฟล์เกณฑ์แต่ละปี
-path3 = "/Users/reg/Desktop/คะแนนสูง-ต่ำ2568.xlsx"  # ไฟล์วิเคราะห์คะแนน
-path4 = "/Users/reg/Desktop/result2.xlsx"  # ไฟล์วิเคราะห์คะแนน
-path5 = "/Users/reg/Desktop/result3.xlsx"  # ไฟล์วิเคราะห์คะแนน
+path = "data/admission_weight68_update.xlsx"  # คะแนนที่ใช้คำนวน
+path2 = "data/คณะสาขาที่เปิดรับและคะแนนรวมขั้นต่ำ68-1.xlsx"  # ไฟล์เกณฑ์แต่ละปี
+path3 = "data/คะแนนสูง-ต่ำ2568.xlsx"  # ไฟล์วิเคราะห์คะแนน
+path4 = "data/result2.xlsx"  # ไฟล์วิเคราะห์คะแนน
+path5 = "data/result3.xlsx"  # ไฟล์วิเคราะห์คะแนน
 pf = pd.read_excel(path).fillna(0)
 pf2 = pd.read_excel(path2).fillna(0)
 pf3 = pd.read_excel(path3).fillna(0)
